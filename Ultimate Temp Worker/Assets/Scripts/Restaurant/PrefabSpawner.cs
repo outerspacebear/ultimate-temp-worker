@@ -27,7 +27,7 @@ public class PrefabSpawner : MonoBehaviour
 
 
             int itemIndex = Random.Range(0, itemPrefabs.Count);
-            GameObject spawnedItem = Instantiate(itemPrefabs[itemIndex], spawnPoint.position, spawnPoint.rotation);
+            GameObject spawnedItem = Instantiate(itemPrefabs[itemIndex], spawnPoint.position, spawnPoint.rotation, transform.parent);
 
             RotateItem(spawnedItem);
             PushItemUpwards(spawnedItem);
