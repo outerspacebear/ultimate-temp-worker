@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8308270585610669390}
   - component: {fileID: 8182429578517640655}
   - component: {fileID: 6313636631393219544}
+  - component: {fileID: 3413955379808506506}
   m_Layer: 0
   m_Name: Carrot
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8308270585610669391}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.59, y: 2.36, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -121,3 +122,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3413955379808506506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8308270585610669391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5910756519c4adb8e2f68b0b2fc63f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementObject1: {fileID: 3011981686898634800, guid: 94123d428a36c4687aa0c904a48f7c7a, type: 3}
+  replacementObject2: {fileID: 7695026491362081302, guid: 9b7cf02a49a2049a69965cd880f946da, type: 3}
