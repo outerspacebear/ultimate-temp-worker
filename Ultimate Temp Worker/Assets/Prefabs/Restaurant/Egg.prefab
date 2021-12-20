@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 6816337153798416029}
   - component: {fileID: 6154893688678875737}
   - component: {fileID: 3748528088615063440}
+  - component: {fileID: 4258265975666855809}
+  - component: {fileID: 3961909792299896011}
+  - component: {fileID: -1447124780584019928}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Untagged
@@ -121,3 +124,43 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 0.99999994}
   m_Direction: 0
+--- !u!114 &4258265975666855809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6816337153798416028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5910756519c4adb8e2f68b0b2fc63f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementObject1: {fileID: 3219704553308907605, guid: c2c069c068032408d9c68aba55585056, type: 3}
+  replacementObject2: {fileID: 0}
+--- !u!114 &3961909792299896011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6816337153798416028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f2982c23ec341d28354ea56e4b156f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementPrefab: {fileID: 3219704553308907605, guid: c2c069c068032408d9c68aba55585056, type: 3}
+--- !u!114 &-1447124780584019928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6816337153798416028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0e0b74b29ee49f097a233ba49f863a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currencyReward: -1

@@ -22,7 +22,6 @@ public class Mashable : MonoBehaviour
     {
         switch (touch.phase)
         {
-            case TouchPhase.Stationary:
             case TouchPhase.Began:
                 return true;
         }
@@ -46,6 +45,7 @@ public class Mashable : MonoBehaviour
     void OnMash()
     {
         //Play sound
+        TryRewardCurrency();
         CreateReplacementPrefab();
         Destroy(this.gameObject);
     }
@@ -54,5 +54,15 @@ public class Mashable : MonoBehaviour
     {
         var spawnedPrefab = GameObject.Instantiate(replacementPrefab, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.parent);
         Destroy(spawnedPrefab, 1.5f);
+    }
+
+    void TryRewardCurrency()
+    {
+        //Show currency in UI? Or sound effect?
+        var currencyRewardComponent = GetComponent<CurrencyReward>();
+        if (currencyRewardComponent)
+        {
+            CurrencyUtils.AddCurrencyForCurrentGame(currencyRewardComponent.currencyReward);
+        }
     }
 }

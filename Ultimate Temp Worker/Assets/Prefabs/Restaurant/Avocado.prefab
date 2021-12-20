@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4713245779473242620}
   - component: {fileID: -3034976352423242915}
   - component: {fileID: 4098958354283788397}
+  - component: {fileID: -3343722812506235405}
   m_Layer: 0
   m_Name: Avocado
   m_TagString: Untagged
@@ -136,3 +137,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   replacementObject1: {fileID: 5218748895887711420, guid: 592a2c32eb7384da8b7ef6c21303be26, type: 3}
   replacementObject2: {fileID: 2798557892246595526, guid: e606c9559e1d242e8b74384112735e28, type: 3}
+--- !u!114 &-3343722812506235405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558365007894393342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0e0b74b29ee49f097a233ba49f863a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currencyReward: 1
