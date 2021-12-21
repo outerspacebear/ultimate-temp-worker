@@ -5,27 +5,19 @@ using UnityEngine;
 
 public class GlassManager : MonoBehaviour
 {
-    [Serializable]
-    public struct GlassPosition
-    {
-        public string name;
-        public Transform position;
-        public bool isSpawnable;
-    }
-
     public List<GlassPosition> possibleGlassPositions;
+    public List<GlassPosition> possibleCounterPositions;
     public GameObject prefabGlass;
 
-    private GameObject currentGlass;
-    private GlassPosition currentPosition;
-    private Color cocktailColor = Color.black;
+    private List<GlassPosition> unusedCounterPositions;
+
+    private Glass glass;
 
     private Touch initialTouch;
 
-    // Start is called before the first frame update
     void Start()
     {
-        InitGlassAtRandom();
+        Init();
     }
 
     void Update()
@@ -48,23 +40,35 @@ public class GlassManager : MonoBehaviour
         }
     }
 
+    private void Init()
+    {
+        InitGlassAtRandom();
+        unusedCounterPositions = possibleCounterPositions;
+    }
+
     void InitGlassAtRandom() 
     {
-        currentPosition = GetRandomSpawnableGlassPosition();
+        GlassPosition currentPosition = GetRandomSpawnableGlassPosition();
 
-        currentGlass = Instantiate(prefabGlass, currentPosition.position.position, currentPosition.position.rotation);
+        GameObject currentGlass = Instantiate(prefabGlass, currentPosition.position.position, currentPosition.position.rotation);
 
         foreach (Transform child in currentGlass.transform)
         {
             child.GetComponent<Renderer>().enabled = false;
         }
+
+        glass = new Glass {
+            currentGlass = currentGlass,
+            currentPosition = currentPosition,
+            cocktailColor = Color.black
+        };
     }
 
     public void PourIce()
     {
-        foreach (var renderer in currentGlass.GetComponentsInChildren<Renderer>())
+        foreach (var renderer in glass.currentGlass.GetComponentsInChildren<Renderer>())
         {
-            if (renderer.tag == "Ice" && currentPosition.name == "Ice")
+            if (renderer.tag == "Ice" && glass.currentPosition.name == "Ice")
             {
                 renderer.enabled = true;
             }
@@ -73,37 +77,23 @@ public class GlassManager : MonoBehaviour
 
     public void FillWithRed()
     {
-        FillWithColor("Red");
+        glass = MixerUtils.FillWithColor(glass, "Red");
     }
 
     public void FillWithYellow()
     {
-        FillWithColor("Yellow");
+        glass = MixerUtils.FillWithColor(glass, "Yellow");
     }
 
     public void FillWithBlue()
     {
-        FillWithColor("Blue");
+        glass = MixerUtils.FillWithColor(glass, "Blue");
     }
 
    
     public void FillWithWhite()
     {
-        FillWithColor("White");
-    }
-
-    private void FillWithColor(string colorName)
-    {
-        foreach (var renderer in currentGlass.GetComponentsInChildren<Renderer>())
-        {
-            if (renderer.tag == "Cocktail" && currentPosition.name == colorName)
-            {
-                var newColor = GetNewColor(cocktailColor, GetColorBasedOnName(colorName));
-                cocktailColor = newColor;
-                renderer.material.color = cocktailColor;
-                renderer.enabled = true;
-            }
-        }
+        glass = MixerUtils.FillWithColor(glass, "White");
     }
 
     private void MoveGlass(TouchUtils.MoveType moveType)
@@ -111,11 +101,11 @@ public class GlassManager : MonoBehaviour
         switch (moveType)
         {
             case TouchUtils.MoveType.Up:
-                MoveGlassUp();
+                OnMoveGlassUp();
                 return;
 
             case TouchUtils.MoveType.Down:
-                MoveGlassDownOrDiscard();
+                DiscardGlass();
                 return;
 
             case TouchUtils.MoveType.Left:
@@ -132,32 +122,31 @@ public class GlassManager : MonoBehaviour
         }
     }
 
-    public void MoveGlassUp()
+    public void OnMoveGlassUp()
     {
-        var glassPosition = FindGlassPosition("Counter");
-        if (glassPosition.name == "null" || glassPosition.position == currentPosition.position)
+        if (unusedCounterPositions.Count > 0)
         {
-            return;
+            MoveGlassToCounter();
+            RemoveGlassPositionFromUnusedCounterPositions();
+            SubmitGlassToOrder();
+            InitGlassAtRandom();
         }
-        MoveGlassToPosition(glassPosition);
     }
 
-    public void MoveGlassDownOrDiscard()
+    private void MoveGlassToCounter()
     {
-        var glassPosition = FindGlassPosition("Counter");
-        if (glassPosition.name == "null")
-        {
-            return;
-        }
+        MoveGlassToPosition(GetRandomCounterGlassPosition());
+        
+    }
 
-        if (glassPosition.position == currentPosition.position)
-        {
-            MoveGlassToPosition(GetRandomSpawnableGlassPosition());
-        }
-        else
-        {
-            DiscardGlass();
-        }
+    private void RemoveGlassPositionFromUnusedCounterPositions()
+    {
+        unusedCounterPositions.RemoveAll(position => glass.currentPosition.position == position.position);
+    }
+
+    private void SubmitGlassToOrder()
+    {
+        SteampunkEvents.addGlassToOrderEvent.Invoke(glass);
     }
 
     public void MoveGlassToLeft()
@@ -217,7 +206,7 @@ public class GlassManager : MonoBehaviour
         int currentPositionIndex = -1;
         for (int i = 0; i < possibleGlassPositions.Count; ++i)
         {
-            if (possibleGlassPositions[i].position == currentPosition.position)
+            if (possibleGlassPositions[i].position == glass.currentPosition.position)
             {
                 currentPositionIndex = i;
                 continue;
@@ -248,93 +237,27 @@ public class GlassManager : MonoBehaviour
         }
     }
 
-    private void DiscardGlass()
+    private GlassPosition GetRandomCounterGlassPosition()
     {
-        Destroy(currentGlass);
-        InitGlassAtRandom();
+        if (possibleCounterPositions.Count == 0)
+        {
+            Debug.Log("Empty counter positions, check assets");
+            return new GlassPosition { name = "null", position = null, isSpawnable = false };
+        }
+
+        int spawnIndex = UnityEngine.Random.Range(0, possibleCounterPositions.Count);
+        return possibleCounterPositions[spawnIndex];
     }
 
-    private GlassPosition FindGlassPosition(string name)
+    private void DiscardGlass()
     {
-        foreach (var glassPosition in possibleGlassPositions)
-        {
-            if (glassPosition.name == name)
-            {
-                return glassPosition;
-            }
-        }
-        return new GlassPosition{name = "null", position = null, isSpawnable = false};
+        Destroy(glass.currentGlass);
+        InitGlassAtRandom();
     }
 
     private void MoveGlassToPosition(GlassPosition newGlassPosition)
     {
-        currentGlass.transform.position = newGlassPosition.position.position;
-        currentPosition = newGlassPosition;
-    }
-
-    static Color GetColorBasedOnName(string colorName)
-    {
-        switch (colorName)
-        {
-            case "Red":
-                return Color.red;
-            case "Yellow":
-                return Color.yellow;
-            case "Blue":
-                return Color.blue;
-            case "White":
-                return Color.white;
-            default:
-                return Color.black;
-        }
-    }
-
-    private Color GetNewColor(Color baseColor, Color fillingColor)
-    {
-        if (baseColor == Color.black)
-        {
-            return fillingColor;
-        }
-
-        if ((baseColor == Color.red && fillingColor == Color.red) || (fillingColor == Color.red && baseColor == Color.red))
-        {
-            return Color.red;
-        }
-        else if ((baseColor == Color.red && fillingColor == Color.yellow) || (fillingColor == Color.red && baseColor == Color.yellow))
-        {
-            return new Color(1.0f, 0.64f, 0.0f); // orange
-        }
-        else if ((baseColor == Color.red && fillingColor == Color.blue) || (fillingColor == Color.red && baseColor == Color.blue))
-        {
-            return new Color(1.27f, 0.63f, 1.91f); // purple
-        }
-        else if ((baseColor == Color.red && fillingColor == Color.white) || (fillingColor == Color.red && baseColor == Color.white))
-        {
-            return new Color(1.91f, 0.63f, 1.91f); // pink
-        }
-        else if ((baseColor == Color.blue && fillingColor == Color.yellow) || (fillingColor == Color.blue && baseColor == Color.yellow))
-        {
-            return Color.green;
-        }
-        else if ((baseColor == Color.blue && fillingColor == Color.white) || (fillingColor == Color.blue && baseColor == Color.white))
-        {
-            return Color.cyan;
-        }
-        else if ((baseColor == Color.blue && fillingColor == Color.blue) || (fillingColor == Color.blue && baseColor == Color.blue))
-        {
-            return Color.blue;
-        }
-        else if ((baseColor == Color.white && fillingColor == Color.white) || (fillingColor == Color.white && baseColor == Color.white))
-        {
-            return Color.white;
-        }
-        else if ((baseColor == Color.yellow && fillingColor == Color.yellow) || (fillingColor == Color.yellow && baseColor == Color.yellow))
-        {
-            return Color.yellow;
-        }
-        else
-        {
-            return Color.black;
-        }
+        glass.currentGlass.transform.position = newGlassPosition.position.position;
+        glass.currentPosition = newGlassPosition;
     }
 }
