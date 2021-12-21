@@ -20,6 +20,21 @@ public class MixerUtils : MonoBehaviour
         return glass;
     }
 
+    public static Glass FillOrderWithColor(Glass orderGlass, CocktailEnum cocktail)
+    {
+        foreach (var renderer in orderGlass.currentGlass.GetComponentsInChildren<Renderer>())
+        {
+            if (renderer.tag == "Cocktail")
+            {
+                var newColor = MixerUtils.GetNewCocktail(orderGlass.cocktailColor, cocktail);
+                orderGlass.cocktailColor = newColor;
+                renderer.material.color = GetColor(orderGlass.cocktailColor);
+                renderer.enabled = true;
+            }
+        }
+        return orderGlass;
+    }
+
     public static CocktailEnum GetCockatilBasedOnName(string colorName)
     {
         switch (colorName)

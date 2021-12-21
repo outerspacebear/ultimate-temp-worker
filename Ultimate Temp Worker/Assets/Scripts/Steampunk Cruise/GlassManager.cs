@@ -43,11 +43,11 @@ public class GlassManager : MonoBehaviour
 
     private void Init()
     {
-        InitGlassAtRandom();
+        InitGlass();
         unusedCounterPositions = possibleCounterPositions;
     }
 
-    void InitGlassAtRandom() 
+    void InitGlass() 
     {
         GameObject currentGlass = Instantiate(prefabGlass, startingPosition.position, startingPosition.rotation);
 
@@ -133,7 +133,7 @@ public class GlassManager : MonoBehaviour
             MoveGlassToCounter();
             RemoveGlassPositionFromUnusedCounterPositions();
             SubmitGlassToOrder();
-            InitGlassAtRandom();
+            InitGlass();
         }
     }
 
@@ -252,7 +252,7 @@ public class GlassManager : MonoBehaviour
     private void DiscardGlass()
     {
         Destroy(glass.currentGlass);
-        InitGlassAtRandom();
+        InitGlass();
     }
 
     private void MoveGlassToPosition(GlassPosition newGlassPosition)
