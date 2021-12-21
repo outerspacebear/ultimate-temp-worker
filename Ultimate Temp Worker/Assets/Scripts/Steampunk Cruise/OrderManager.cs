@@ -20,18 +20,33 @@ public class OrderManager : MonoBehaviour
 
     private void Init()
     {
+        InitLists();
+        ResetOrderPositions();
+    }
+
+    private void InitLists()
+    {
         cocktailEnums = new List<CocktailEnum>();
         orderedGlasses = new List<Glass>();
-        ResetOrderPositions();
     }
 
     private void ResetOrderPositions()
     {
-        unusedOrderPositions = orderPositions;
+        unusedOrderPositions = new List<GlassPosition>(orderPositions);
+    }
+
+    private void DestroyOrderedGlassObjects()
+    {
+        foreach (var glass in orderedGlasses)
+        {
+            Destroy(glass.currentGlass);
+        }
     }
 
     public void DiscardOrder()
     {
+        DestroyOrderedGlassObjects();
+        InitLists();
         ResetOrderPositions();
         GenerateNewOrder(UnityEngine.Random.Range(0, 2), false);
     }

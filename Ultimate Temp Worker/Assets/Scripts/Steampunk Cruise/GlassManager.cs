@@ -44,7 +44,7 @@ public class GlassManager : MonoBehaviour
     private void Init()
     {
         InitGlass();
-        unusedCounterPositions = possibleCounterPositions;
+        unusedCounterPositions = new List<GlassPosition>(possibleCounterPositions);
     }
 
     void InitGlass() 
