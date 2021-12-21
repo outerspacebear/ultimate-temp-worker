@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GlassManager : MonoBehaviour
 {
+    public Transform startingPosition;
     public List<GlassPosition> possibleGlassPositions;
     public List<GlassPosition> possibleCounterPositions;
     public GameObject prefabGlass;
@@ -48,9 +49,7 @@ public class GlassManager : MonoBehaviour
 
     void InitGlassAtRandom() 
     {
-        GlassPosition currentPosition = GetRandomSpawnableGlassPosition();
-
-        GameObject currentGlass = Instantiate(prefabGlass, currentPosition.position.position, currentPosition.position.rotation);
+        GameObject currentGlass = Instantiate(prefabGlass, startingPosition.position, startingPosition.rotation);
 
         foreach (Transform child in currentGlass.transform)
         {
@@ -59,7 +58,7 @@ public class GlassManager : MonoBehaviour
 
         glass = new Glass {
             currentGlass = currentGlass,
-            currentPosition = currentPosition,
+            currentPosition = new GlassPosition { name = "Starting Position", position = startingPosition },
             cocktailColor = Color.black
         };
     }
@@ -124,6 +123,11 @@ public class GlassManager : MonoBehaviour
 
     public void OnMoveGlassUp()
     {
+        if (IsGlassInStartingPosition())
+        {
+            return;
+        }
+
         if (unusedCounterPositions.Count > 0)
         {
             MoveGlassToCounter();
@@ -186,6 +190,11 @@ public class GlassManager : MonoBehaviour
 
     private int FindIndexOfPositionToRight()
     {
+        if (glass.currentPosition.position.position == startingPosition.position)
+        {
+            return 0;
+        }
+
         int currentPositionIndex = GetCurrentPositionIndex();
         if (currentPositionIndex == -1)
         {
@@ -221,20 +230,11 @@ public class GlassManager : MonoBehaviour
         if (possibleGlassPositions.Count == 0)
         {
             Debug.Log("Empty glass positions, check assets");
-            return new GlassPosition { name = "null", position = null, isSpawnable = false };
+            return new GlassPosition { name = "null", position = null };
         }
 
-        int spawnIndex;
-        Transform spawnPoint = possibleGlassPositions[0].position;
-
-        while (true)
-        {
-            spawnIndex = UnityEngine.Random.Range(0, possibleGlassPositions.Count);
-            if (possibleGlassPositions[spawnIndex].isSpawnable)
-            {
-                return possibleGlassPositions[spawnIndex];
-            }
-        }
+        int spawnIndex = UnityEngine.Random.Range(0, possibleGlassPositions.Count);
+        return possibleGlassPositions[spawnIndex];
     }
 
     private GlassPosition GetRandomCounterGlassPosition()
@@ -242,7 +242,7 @@ public class GlassManager : MonoBehaviour
         if (possibleCounterPositions.Count == 0)
         {
             Debug.Log("Empty counter positions, check assets");
-            return new GlassPosition { name = "null", position = null, isSpawnable = false };
+            return new GlassPosition { name = "null", position = null };
         }
 
         int spawnIndex = UnityEngine.Random.Range(0, possibleCounterPositions.Count);
@@ -259,5 +259,10 @@ public class GlassManager : MonoBehaviour
     {
         glass.currentGlass.transform.position = newGlassPosition.position.position;
         glass.currentPosition = newGlassPosition;
+    }
+
+    private bool IsGlassInStartingPosition()
+    {
+        return glass.currentPosition.position.position == startingPosition.position;
     }
 }

@@ -7,5 +7,4 @@ public struct GlassPosition
 {
     public string name;
     public Transform position;
-    public bool isSpawnable;
 }

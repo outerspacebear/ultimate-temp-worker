@@ -286,7 +286,7 @@ Transform:
   - {fileID: 276106818}
   - {fileID: 1887001383}
   m_Father: {fileID: 464182301}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &276106817
 GameObject:
@@ -345,6 +345,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2126677105}
   - {fileID: 1287192635}
   - {fileID: 706344135}
   - {fileID: 590356794}
@@ -514,7 +515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 464182301}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &702648044
 GameObject:
@@ -574,7 +575,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 464182301}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &782802659
 GameObject:
@@ -1278,7 +1279,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 464182301}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1290932241
 GameObject:
@@ -1391,7 +1392,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 464182301}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460723994
 GameObject:
@@ -1421,7 +1422,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 464182301}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1477231113
 GameObject:
@@ -1452,32 +1453,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3bfb93a6f8644acbf316a9298d3acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingPosition: {fileID: 2126677105}
   possibleGlassPositions:
   - name: Red
     position: {fileID: 1287192635}
-    isSpawnable: 1
   - name: Yellow
     position: {fileID: 706344135}
-    isSpawnable: 1
   - name: Blue
     position: {fileID: 590356794}
-    isSpawnable: 1
   - name: White
     position: {fileID: 1453008702}
-    isSpawnable: 1
   - name: Ice
     position: {fileID: 1460723995}
-    isSpawnable: 0
   possibleCounterPositions:
   - name: 1
     position: {fileID: 702648045}
-    isSpawnable: 0
   - name: 2
     position: {fileID: 276106818}
-    isSpawnable: 0
   - name: 3
     position: {fileID: 1887001383}
-    isSpawnable: 0
   prefabGlass: {fileID: 6294096664981760139, guid: 5369865655d26428c940240d68b07225, type: 3}
 --- !u!4 &1477231115
 Transform:
@@ -2319,3 +2313,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029452374}
   m_CullTransparentMesh: 1
+--- !u!1 &2126677104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2126677105}
+  m_Layer: 0
+  m_Name: Starting Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2126677105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126677104}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.98, y: -3.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 464182301}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
