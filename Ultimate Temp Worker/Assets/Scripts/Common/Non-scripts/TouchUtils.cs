@@ -13,6 +13,8 @@ public static class TouchUtils
         None
     }
 
+    private static float SwipeThreshold = 0.3f;
+
     public static bool DoesAnyTouchExist()
     {
         return Input.touchCount > 0;
@@ -40,25 +42,23 @@ public static class TouchUtils
 
     private static MoveType CalculateSwipeDirection(float deltaX, float deltaY)
     {
+        if (deltaX < SwipeThreshold && deltaY < SwipeThreshold)
+        {
+            return MoveType.None;
+        }
+
         bool isHorizontalSwipe = Mathf.Abs(deltaX) > Mathf.Abs(deltaY);
+
+        var moveType = MoveType.None;
 
         if (isHorizontalSwipe)
         {
-            if (deltaX > 0)
-                return MoveType.Right;
-            else if (deltaX < 0)
-                return MoveType.Left;
+            moveType = deltaX > 0 ? MoveType.Right : MoveType.Left;
         }
-        //vertical swipe
         else if (!isHorizontalSwipe)
         {
-            //up
-            if (deltaY > 0)
-                return MoveType.Up;
-            //down
-            else if (deltaY < 0)
-                return MoveType.Down;
+            moveType = deltaY > 0 ? MoveType.Up : MoveType.Down;
         }
-        return MoveType.None;
+        return moveType;
     }
 }
