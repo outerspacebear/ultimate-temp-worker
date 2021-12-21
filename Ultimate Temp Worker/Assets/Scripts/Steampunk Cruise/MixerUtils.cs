@@ -26,8 +26,7 @@ public class MixerUtils : MonoBehaviour
         {
             if (renderer.tag == "Cocktail")
             {
-                var newColor = MixerUtils.GetNewCocktail(orderGlass.cocktailColor, cocktail);
-                orderGlass.cocktailColor = newColor;
+                orderGlass.cocktailColor = cocktail;
                 renderer.material.color = GetColor(orderGlass.cocktailColor);
                 renderer.enabled = true;
             }

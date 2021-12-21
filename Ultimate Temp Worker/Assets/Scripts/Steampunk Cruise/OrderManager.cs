@@ -14,52 +14,83 @@ public class OrderManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Init();
+        GenerateNewOrder(1, true);
+    }
+
+    private void Init()
+    {
         cocktailEnums = new List<CocktailEnum>();
         orderedGlasses = new List<Glass>();
+        ResetOrderPositions();
+    }
+
+    private void ResetOrderPositions()
+    {
         unusedOrderPositions = orderPositions;
-        GenerateNewOrder(1);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DiscardOrder()
     {
-        
+        ResetOrderPositions();
+        GenerateNewOrder(UnityEngine.Random.Range(0, 2), false);
     }
 
-    void GenerateNewOrder(int numberOfCocktails = 0)
+    void GenerateNewOrder(int numberOfCocktails, bool isFirstOrder)
     {
-        AddToCocktailEnums(numberOfCocktails);
-        GenerateOrderedGlasses();
+        AddToCocktailEnums(numberOfCocktails, isFirstOrder);
+
+        bool withIce = UnityEngine.Random.value < 0.5;
+        if (isFirstOrder)
+        {
+            withIce = !isFirstOrder;
+        }
+        GenerateOrderedGlasses(withIce);
 
     }
 
-    void AddToCocktailEnums(int numberOfCocktails)
+    void AddToCocktailEnums(int numberOfCocktails, bool isFirstOrder)
     {
-        if (numberOfCocktails == 0)
+        int randomCocktail = 0;
+
+        if (isFirstOrder)
+        {
+            randomCocktail = UnityEngine.Random.Range(0, 3);
+        }
+        else
         {
             numberOfCocktails = UnityEngine.Random.Range(1, 3);
+            randomCocktail = UnityEngine.Random.Range(0, Enum.GetNames(typeof(CocktailEnum)).Length - 2);
         }
 
         for (int i = 0; i < numberOfCocktails; ++i)
         {
-            int randomCocktail = UnityEngine.Random.Range(0, Enum.GetNames(typeof(CocktailEnum)).Length);
             cocktailEnums.Add((CocktailEnum) randomCocktail);
         }
     }
 
-    void GenerateOrderedGlasses()
+    void GenerateOrderedGlasses(bool withIce)
     {
         foreach (var cocktail in cocktailEnums)
         {
             var position = PopRandomOrderedGlassPosition();
             var glassGameObject = GetGlassObject(position);
+
             Glass glass = new Glass
             {
                 currentGlass = glassGameObject,
                 currentPosition = position,
-                cocktailColor = cocktail
+                cocktailColor = cocktail,
+                hasIce = withIce
             };
+
             glass = MixerUtils.FillOrderWithColor(glass, cocktail);
+
+            if (glass.hasIce)
+            {
+                glass = AddIce(glass);
+            }
+
             glass.currentGlass.SetActive(true);
             orderedGlasses.Add(glass);
         }
@@ -67,7 +98,7 @@ public class OrderManager : MonoBehaviour
 
     GlassPosition PopRandomOrderedGlassPosition()
     {
-        int randomCocktailIndex = UnityEngine.Random.Range(0, cocktailEnums.Count);
+        int randomCocktailIndex = UnityEngine.Random.Range(0, unusedOrderPositions.Count);
         var chosenGlassPosition = unusedOrderPositions[randomCocktailIndex];
         unusedOrderPositions.RemoveAll(position => position.position == chosenGlassPosition.position);
         return chosenGlassPosition;
@@ -76,5 +107,17 @@ public class OrderManager : MonoBehaviour
     GameObject GetGlassObject(GlassPosition position)
     {
         return Instantiate(orderedGlassPrefab, position.position.position, position.position.rotation);
+    }
+
+    Glass AddIce(Glass glass)
+    {
+        foreach (var renderer in glass.currentGlass.GetComponentsInChildren<Renderer>())
+        {
+            if (renderer.tag == "Ice")
+            {
+                renderer.enabled = true;
+            }
+        }
+        return glass;
     }
 }

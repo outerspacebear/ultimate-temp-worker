@@ -6,12 +6,12 @@ using UnityEngine;
 public enum CocktailEnum
 {
     Red,
-    Orange,
     Yellow,
     Blue,
-    Purple,
     White,
     Pink,
+    Orange,
+    Purple,
     Green,
     Cyan,
     Black,

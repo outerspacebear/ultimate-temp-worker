@@ -59,7 +59,8 @@ public class GlassManager : MonoBehaviour
         glass = new Glass {
             currentGlass = currentGlass,
             currentPosition = new GlassPosition { name = "Starting Position", position = startingPosition },
-            cocktailColor = CocktailEnum.Empty
+            cocktailColor = CocktailEnum.Empty,
+            hasIce = false
         };
     }
 
@@ -69,6 +70,7 @@ public class GlassManager : MonoBehaviour
         {
             if (renderer.tag == "Ice" && glass.currentPosition.name == "Ice")
             {
+                glass.hasIce = true;
                 renderer.enabled = true;
             }
         }
