@@ -61,4 +61,9 @@ public static class TouchUtils
         }
         return moveType;
     }
+
+    public static Vector3 GetWorldPosition(Touch touch)
+    {
+        return Camera.main.ScreenToWorldPoint(touch.position);
+    }
 }

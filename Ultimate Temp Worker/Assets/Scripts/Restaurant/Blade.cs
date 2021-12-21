@@ -64,7 +64,7 @@ public class Blade : MonoBehaviour
 
     void InitBlade(Touch touch)
     {
-        var worldPosition = GetWorldPosition(touch);
+        var worldPosition = TouchUtils.GetWorldPosition(touch);
         worldPosition.z = -1;
 
         blade.transform.position = worldPosition;
@@ -85,14 +85,9 @@ public class Blade : MonoBehaviour
         return false;
     }
 
-    static Vector3 GetWorldPosition(Touch touch)
-    {
-        return Camera.main.ScreenToWorldPoint(touch.position);
-    }
-
     void MakeBladeFollowTouch()
     {
-        var destination = Vector3.Lerp(blade.transform.position, GetWorldPosition(Input.touches[0]), Time.deltaTime * 20f);
+        var destination = Vector3.Lerp(blade.transform.position, TouchUtils.GetWorldPosition(Input.touches[0]), Time.deltaTime * 2f);
         destination.z = blade.transform.position.z;
 
         blade.transform.position = destination;

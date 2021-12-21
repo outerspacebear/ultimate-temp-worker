@@ -8,19 +8,17 @@ public class GlassManager : MonoBehaviour
     public Transform startingPosition;
     public List<GlassPosition> possibleGlassPositions;
     public List<GlassPosition> possibleCounterPositions;
+    public GlassPosition binPosition;
     public GameObject prefabGlass;
 
     private List<GlassPosition> unusedCounterPositions;
 
     private Glass glass;
 
-    private Touch initialTouch;
-    private bool hasMovedWithCurrentTouch = false;
+    /*private Touch initialTouch;
+    private bool hasMovedWithCurrentTouch = false;*/
 
-    private void Awake()
-    {
-        
-    }
+    bool isDraggingGlass = false;
 
     void Start()
     {
@@ -29,7 +27,7 @@ public class GlassManager : MonoBehaviour
 
     void Update()
     {
-        if (!TouchUtils.DoesAnyTouchExist())
+        /*if (!TouchUtils.DoesAnyTouchExist())
         {
             return;
         }
@@ -46,7 +44,80 @@ public class GlassManager : MonoBehaviour
             var moveType = TouchUtils.GetMoveType(initialTouch, touch);
             MoveGlass(moveType);
             hasMovedWithCurrentTouch = true;
+        }*/
+
+        if (!TouchUtils.DoesAnyTouchExist())
+        {
+            return;
         }
+
+        if (TouchUtils.HasTouchBegan() && IsTouchOnGlass(Input.touches[0]))
+        {
+            isDraggingGlass = true;
+        }
+
+        if(isDraggingGlass)
+        {
+            var touchPosition = TouchUtils.GetWorldPosition(Input.touches[0]);
+            var destinationPosition = Vector3.Lerp(glass.currentGlass.transform.position, touchPosition, Time.deltaTime * 20f);
+
+            destinationPosition.z = glass.currentGlass.transform.position.z;
+
+            glass.currentGlass.transform.position = destinationPosition;
+        }
+
+        if(TouchUtils.HasTouchEnded() && isDraggingGlass)
+        {
+            isDraggingGlass = false;
+            var closestGlassPosition = GetClosestGlassPosition(glass.currentGlass.transform);
+            glass.currentGlass.transform.position = closestGlassPosition.position.position;
+            glass.currentPosition = closestGlassPosition;
+
+            if(closestGlassPosition.position.position == binPosition.position.position)
+            {
+                DiscardGlass();
+            }
+            else if(possibleCounterPositions.Contains(closestGlassPosition))
+            {
+                OnMoveGlassToCounter();
+            }
+        }
+    }
+
+    GlassPosition GetClosestGlassPosition(Transform sourcePosition)
+    {
+        float minDistance = Mathf.Infinity;
+        GlassPosition nearestPosition = new GlassPosition();
+
+        foreach(var potentialPosition in possibleGlassPositions)
+        {
+            var distance = Vector3.Distance(sourcePosition.position, potentialPosition.position.position);
+            if(distance < minDistance)
+            {
+                minDistance = distance;
+                nearestPosition = potentialPosition;
+            }
+        }
+        foreach (var potentialPosition in possibleCounterPositions)
+        {
+            var distance = Vector3.Distance(sourcePosition.position, potentialPosition.position.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestPosition = potentialPosition;
+            }
+        }
+
+        {
+            var distance = Vector3.Distance(sourcePosition.position, binPosition.position.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestPosition = binPosition;
+            }
+        }
+
+        return nearestPosition;
     }
 
     private void Init()
@@ -123,7 +194,7 @@ public class GlassManager : MonoBehaviour
         glass = MixerUtils.FillWithColor(glass, "White");
     }
 
-    private void MoveGlass(TouchUtils.MoveType moveType)
+    /*private void MoveGlass(TouchUtils.MoveType moveType)
     {
         switch (moveType)
         {
@@ -147,18 +218,12 @@ public class GlassManager : MonoBehaviour
             default:
                 return;
         }
-    }
+    }*/
 
-    public void OnMoveGlassUp()
+    public void OnMoveGlassToCounter()
     {
-        if (IsGlassInStartingPosition())
-        {
-            return;
-        }
-
         if (unusedCounterPositions.Count > 0)
         {
-            MoveGlassToCounter();
             RemoveGlassPositionFromUnusedCounterPositions();
             SubmitGlassToOrder();
             InitGlass();
@@ -168,7 +233,6 @@ public class GlassManager : MonoBehaviour
     private void MoveGlassToCounter()
     {
         MoveGlassToPosition(GetRandomCounterGlassPosition());
-        
     }
 
     private void RemoveGlassPositionFromUnusedCounterPositions()
@@ -253,7 +317,7 @@ public class GlassManager : MonoBehaviour
         return currentPositionIndex;
     }
 
-    private GlassPosition GetRandomSpawnableGlassPosition()
+    /*private GlassPosition GetRandomSpawnableGlassPosition()
     {
         if (possibleGlassPositions.Count == 0)
         {
@@ -263,7 +327,7 @@ public class GlassManager : MonoBehaviour
 
         int spawnIndex = UnityEngine.Random.Range(0, possibleGlassPositions.Count);
         return possibleGlassPositions[spawnIndex];
-    }
+    }*/
 
     private GlassPosition GetRandomCounterGlassPosition()
     {
