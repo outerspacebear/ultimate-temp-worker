@@ -52,7 +52,7 @@ public class CreatureSubmitter : MonoBehaviour
 
     private void RewardCurrencyOnSuccess()
     {
-        //TODO
+        CurrencyUtils.AddCurrencyForGame(CurrencyUtils.RestaurantGameName, 10);
     }
 
     public GameObject successUI;

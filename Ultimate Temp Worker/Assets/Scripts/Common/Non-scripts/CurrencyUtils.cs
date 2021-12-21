@@ -7,6 +7,9 @@ public static class CurrencyUtils
     static string CurrentMiniGameCurrency = "CurrentMiniGameCurrency";
     static string TotalCurrencyKey = "TotalCurrency";
 
+    public static string RestaurantGameName = "RestGameCur";
+    public static string CreatureCreatorGameName = "CreCreGameCur";
+
     public static void AddCurrencyForCurrentGame(int amount)
     {
         var currencyEarnedPreviously = PlayerPrefs.GetInt(CurrentMiniGameCurrency, 0);

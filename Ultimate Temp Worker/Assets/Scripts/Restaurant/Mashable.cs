@@ -67,7 +67,7 @@ public class Mashable : MonoBehaviour
         var currencyRewardComponent = GetComponent<CurrencyReward>();
         if (currencyRewardComponent)
         {
-            CurrencyUtils.AddCurrencyForCurrentGame(currencyRewardComponent.currencyReward);
+            CurrencyUtils.AddCurrencyForGame(CurrencyUtils.RestaurantGameName, currencyRewardComponent.currencyReward);
         }
     }
 }
