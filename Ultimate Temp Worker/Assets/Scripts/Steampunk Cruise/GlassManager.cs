@@ -13,12 +13,14 @@ public class GlassManager : MonoBehaviour
         public bool isSpawnable;
     }
 
-    public List<GlassPosition> spawnablePositions;
+    public List<GlassPosition> possibleGlassPositions;
     public GameObject prefabGlass;
 
     private GameObject currentGlass;
     private GlassPosition currentPosition;
     private Color cocktailColor = Color.black;
+
+    private Touch initialTouch;
 
     // Start is called before the first frame update
     void Start()
@@ -26,22 +28,31 @@ public class GlassManager : MonoBehaviour
         InitGlassAtRandom();
     }
 
+    void Update()
+    {
+        if (!TouchUtils.DoesAnyTouchExist())
+        {
+            return;
+        }
+
+        if (TouchUtils.HasTouchBegan())
+        {
+            initialTouch = Input.touches[0];
+        }
+
+        var touch = Input.touches[0];
+        if (TouchUtils.IsSwipe(touch))
+        {
+            var moveType = TouchUtils.GetMoveType(initialTouch, touch);
+            MoveGlass(moveType);
+        }
+    }
 
     void InitGlassAtRandom() 
     {
-        bool isSpawnable = false;
-        int spawnIndex;
-        Transform spawnPoint = spawnablePositions[0].position;
+        currentPosition = GetRandomSpawnableGlassPosition();
 
-        while (!isSpawnable)
-        {
-            spawnIndex = UnityEngine.Random.Range(0, spawnablePositions.Count);
-            isSpawnable = spawnablePositions[spawnIndex].isSpawnable;
-            spawnPoint = spawnablePositions[spawnIndex].position;
-            currentPosition = spawnablePositions[spawnIndex];
-        }
-
-        currentGlass = Instantiate(prefabGlass, spawnPoint.position, spawnPoint.rotation);
+        currentGlass = Instantiate(prefabGlass, currentPosition.position.position, currentPosition.position.rotation);
 
         foreach (Transform child in currentGlass.transform)
         {
@@ -95,9 +106,170 @@ public class GlassManager : MonoBehaviour
         }
     }
 
-    private void MoveGlass()
+    private void MoveGlass(TouchUtils.MoveType moveType)
     {
+        switch (moveType)
+        {
+            case TouchUtils.MoveType.Up:
+                MoveGlassUp();
+                return;
 
+            case TouchUtils.MoveType.Down:
+                MoveGlassDownOrDiscard();
+                return;
+
+            case TouchUtils.MoveType.Left:
+                MoveGlassToLeft();
+                return;
+
+            case TouchUtils.MoveType.Right:
+                MoveGlassToRight();
+                return;
+
+            case TouchUtils.MoveType.None:
+            default:
+                return;
+        }
+    }
+
+    public void MoveGlassUp()
+    {
+        var glassPosition = FindGlassPosition("Counter");
+        if (glassPosition.name == "null" || glassPosition.position == currentPosition.position)
+        {
+            return;
+        }
+        MoveGlassToPosition(glassPosition);
+    }
+
+    public void MoveGlassDownOrDiscard()
+    {
+        var glassPosition = FindGlassPosition("Counter");
+        if (glassPosition.name == "null")
+        {
+            return;
+        }
+
+        if (glassPosition.position == currentPosition.position)
+        {
+            MoveGlassToPosition(GetRandomSpawnableGlassPosition());
+        }
+        else
+        {
+            DiscardGlass();
+        }
+    }
+
+    public void MoveGlassToLeft()
+    {
+        int leftIndex = FindIndexOfPositionToLeft();
+        if (leftIndex != -1)
+        {
+            MoveGlassToPosition(possibleGlassPositions[leftIndex]);
+        }
+    }
+
+    public void MoveGlassToRight()
+    {
+        int rightIndex = FindIndexOfPositionToRight();
+        if (rightIndex != -1)
+        {
+            MoveGlassToPosition(possibleGlassPositions[rightIndex]);
+        }
+    }
+
+    private int FindIndexOfPositionToLeft()
+    {
+        int currentPositionIndex = GetCurrentPositionIndex();
+        if (currentPositionIndex == -1)
+        {
+            return currentPositionIndex;
+        }
+
+        int leftPositionIndex = currentPositionIndex - 1;
+        if (leftPositionIndex < 0)
+        {
+            leftPositionIndex = possibleGlassPositions.Count - 1;
+        }
+
+        return leftPositionIndex;
+    }
+
+    private int FindIndexOfPositionToRight()
+    {
+        int currentPositionIndex = GetCurrentPositionIndex();
+        if (currentPositionIndex == -1)
+        {
+            return currentPositionIndex;
+        }
+
+        int rightPositionIndex = currentPositionIndex + 1;
+        if (rightPositionIndex >= possibleGlassPositions.Count)
+        {
+            rightPositionIndex = 0;
+        }
+
+        return rightPositionIndex;
+    }
+
+    private int GetCurrentPositionIndex()
+    {
+        int currentPositionIndex = -1;
+        for (int i = 0; i < possibleGlassPositions.Count; ++i)
+        {
+            if (possibleGlassPositions[i].position == currentPosition.position)
+            {
+                currentPositionIndex = i;
+                continue;
+            }
+        }
+
+        return currentPositionIndex;
+    }
+
+    private GlassPosition GetRandomSpawnableGlassPosition()
+    {
+        if (possibleGlassPositions.Count == 0)
+        {
+            Debug.Log("Empty glass positions, check assets");
+            return new GlassPosition { name = "null", position = null, isSpawnable = false };
+        }
+
+        int spawnIndex;
+        Transform spawnPoint = possibleGlassPositions[0].position;
+
+        while (true)
+        {
+            spawnIndex = UnityEngine.Random.Range(0, possibleGlassPositions.Count);
+            if (possibleGlassPositions[spawnIndex].isSpawnable)
+            {
+                return possibleGlassPositions[spawnIndex];
+            }
+        }
+    }
+
+    private void DiscardGlass()
+    {
+        Destroy(currentGlass);
+        InitGlassAtRandom();
+    }
+
+    private GlassPosition FindGlassPosition(string name)
+    {
+        foreach (var glassPosition in possibleGlassPositions)
+        {
+            if (glassPosition.name == name)
+            {
+                return glassPosition;
+            }
+        }
+        return new GlassPosition{name = "null", position = null, isSpawnable = false};
+    }
+
+    private void MoveGlassToPosition(GlassPosition newGlassPosition)
+    {
+        currentGlass.transform.position = newGlassPosition.position.position;
+        currentPosition = newGlassPosition;
     }
 
     static Color GetColorBasedOnName(string colorName)
