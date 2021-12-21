@@ -241,14 +241,8 @@ public class GlassManager : MonoBehaviour
 
     private GlassPosition GetRandomCounterGlassPosition()
     {
-        if (possibleCounterPositions.Count == 0)
-        {
-            Debug.Log("Empty counter positions, check assets");
-            return new GlassPosition { name = "null", position = null };
-        }
-
-        int spawnIndex = UnityEngine.Random.Range(0, possibleCounterPositions.Count);
-        return possibleCounterPositions[spawnIndex];
+        int spawnIndex = UnityEngine.Random.Range(0, unusedCounterPositions.Count);
+        return unusedCounterPositions[spawnIndex];
     }
 
     private void DiscardGlass()

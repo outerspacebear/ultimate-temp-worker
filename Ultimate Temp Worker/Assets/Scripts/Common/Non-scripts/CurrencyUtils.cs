@@ -13,4 +13,11 @@ public static class CurrencyUtils
 
         PlayerPrefs.SetInt(CurrentMiniGameCurrency, currencyEarnedPreviously + amount);
     }
+
+    public static void AddCurrencyForGame(string gameName, int amount)
+    {
+        var currencyEarnedPreviously = PlayerPrefs.GetInt(gameName, 0);
+
+        PlayerPrefs.SetInt(gameName, currencyEarnedPreviously + amount);
+    }
 }

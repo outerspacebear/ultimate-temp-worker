@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class OrderManager : MonoBehaviour
 {
@@ -9,7 +10,13 @@ public class OrderManager : MonoBehaviour
 
     private List<CocktailEnum> cocktailEnums;
     private List<Glass> orderedGlasses;
+    private List<Glass> preparedGlasses;
     private List<GlassPosition> unusedOrderPositions;
+
+    private void Awake()
+    {
+        SteampunkEvents.addGlassToOrderEvent.AddListener(AddGlassToBeServed);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +35,7 @@ public class OrderManager : MonoBehaviour
     {
         cocktailEnums = new List<CocktailEnum>();
         orderedGlasses = new List<Glass>();
+        preparedGlasses = new List<Glass>();
     }
 
     private void ResetOrderPositions()
@@ -43,9 +51,81 @@ public class OrderManager : MonoBehaviour
         }
     }
 
+    private void DestroyPreparedGlassObjects()
+    {
+        foreach (var glass in preparedGlasses)
+        {
+            Destroy(glass.currentGlass);
+        }
+    }
+
+    void AddGlassToBeServed(Glass glass)
+    {
+        preparedGlasses.Add(glass);
+    }
+
+    public void ServePreparedGlasses()
+    {
+        int amount = CalculateRewardForOrder();
+        AddCurrencyToInventory(amount);
+        ResetRound();
+    }
+
     public void DiscardOrder()
     {
+        if (ShouldHaveDiscardedOrder())
+        {
+            AddCurrencyToInventory(SteampunkGameData.SingleEarningValue);
+        }
         DestroyOrderedGlassObjects();
+        InitLists();
+        ResetOrderPositions();
+        GenerateNewOrder(UnityEngine.Random.Range(0, 2), false);
+    }
+
+    private bool ShouldHaveDiscardedOrder()
+    {
+        return orderedGlasses.Count > 2;
+    }
+
+    private void AddCurrencyToInventory(int amount)
+    {
+        CurrencyUtils.AddCurrencyForGame(SteampunkGameData.GameName, amount);
+        Debug.Log(amount + " currency was added to inventory");
+    }
+
+    private int CalculateRewardForOrder()
+    {
+        int reward = 0;
+
+        bool hasServedMoreThanAuthorised = preparedGlasses.Count > SteampunkGameData.MaxAmountOfDrinksAuthorised;
+
+        if (hasServedMoreThanAuthorised)
+        {
+            return -SteampunkGameData.SingleEarningValue;
+        }
+
+        bool hasSameNumberOfGlasses = orderedGlasses.Count == preparedGlasses.Count;
+
+        bool shouldGetReward = hasSameNumberOfGlasses && hasSameNumberOfGlasses;
+
+        foreach (var order in orderedGlasses)
+        {
+            shouldGetReward &= preparedGlasses.Any(preparedGlass => order.cocktailColor == preparedGlass.cocktailColor && order.hasIce == preparedGlass.hasIce);
+        }
+
+        if (shouldGetReward)
+        {
+            ++reward;
+        }
+
+        return reward;
+    }
+
+    private void ResetRound()
+    {
+        DestroyOrderedGlassObjects();
+        DestroyPreparedGlassObjects();
         InitLists();
         ResetOrderPositions();
         GenerateNewOrder(UnityEngine.Random.Range(0, 2), false);
@@ -70,11 +150,11 @@ public class OrderManager : MonoBehaviour
 
         if (isFirstOrder)
         {
-            randomCocktail = UnityEngine.Random.Range(0, 3);
+            randomCocktail = UnityEngine.Random.Range(0, 4);
         }
         else
         {
-            numberOfCocktails = UnityEngine.Random.Range(1, 3);
+            numberOfCocktails = UnityEngine.Random.Range(1, 4);
             randomCocktail = UnityEngine.Random.Range(0, Enum.GetNames(typeof(CocktailEnum)).Length - 2);
         }
 
