@@ -174,4 +174,12 @@ public class CreaturePartsCombiner : MonoBehaviour
     {
         return (currentIndex + (list.Count - 1)) % list.Count;
     }
+
+
+    public Creature GetCurrentCreature()
+    {
+        Creature creature = new Creature();
+        creature.parts = new List<CreaturePart> { selectedHeadPart, selectedTorsoPart, selectedBottomPart };
+        return creature;
+    }
 }

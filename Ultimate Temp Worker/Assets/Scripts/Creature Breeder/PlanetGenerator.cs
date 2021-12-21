@@ -68,4 +68,10 @@ public class PlanetGenerator : MonoBehaviour
                 break;
         }
     }
+
+
+    public Planet GetCurrentPlanet()
+    {
+        return currentPlanet;
+    }
 }
