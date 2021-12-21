@@ -59,7 +59,7 @@ public class GlassManager : MonoBehaviour
         glass = new Glass {
             currentGlass = currentGlass,
             currentPosition = new GlassPosition { name = "Starting Position", position = startingPosition },
-            cocktailColor = Color.black
+            cocktailColor = CocktailEnum.Empty
         };
     }
 

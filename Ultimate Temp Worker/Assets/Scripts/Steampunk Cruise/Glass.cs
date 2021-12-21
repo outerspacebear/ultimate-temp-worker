@@ -6,5 +6,5 @@ public struct Glass
 {
     public GameObject currentGlass;
     public GlassPosition currentPosition;
-    public Color cocktailColor;
+    public CocktailEnum cocktailColor;
 }

@@ -11,78 +11,115 @@ public class MixerUtils : MonoBehaviour
         {
             if (renderer.tag == "Cocktail" && glass.currentPosition.name == colorName)
             {
-                var newColor = MixerUtils.GetNewColor(glass.cocktailColor, MixerUtils.GetColorBasedOnName(colorName));
+                var newColor = MixerUtils.GetNewCocktail(glass.cocktailColor, MixerUtils.GetCockatilBasedOnName(colorName));
                 glass.cocktailColor = newColor;
-                renderer.material.color = glass.cocktailColor;
+                renderer.material.color = GetColor(glass.cocktailColor);
                 renderer.enabled = true;
             }
         }
         return glass;
     }
 
-    public static Color GetColorBasedOnName(string colorName)
+    public static CocktailEnum GetCockatilBasedOnName(string colorName)
     {
         switch (colorName)
         {
             case "Red":
-                return Color.red;
+                return CocktailEnum.Red;
             case "Yellow":
-                return Color.yellow;
+                return CocktailEnum.Yellow;
             case "Blue":
-                return Color.blue;
+                return CocktailEnum.Blue;
             case "White":
-                return Color.white;
+                return CocktailEnum.White;
             default:
-                return Color.black;
+                return CocktailEnum.Black;
         }
     }
 
-    public static Color GetNewColor(Color baseColor, Color fillingColor)
+    public static CocktailEnum GetNewCocktail(CocktailEnum baseCocktail, CocktailEnum fillingCocktail)
     {
-        if (baseColor == Color.black)
+        if (baseCocktail == CocktailEnum.Empty)
         {
-            return fillingColor; // TODO
+            return fillingCocktail;
         }
 
-        if ((baseColor == Color.red && fillingColor == Color.red) || (fillingColor == Color.red && baseColor == Color.red))
+        if (baseCocktail == CocktailEnum.Red && fillingCocktail == CocktailEnum.Red)
         {
-            return Color.red;
+            return CocktailEnum.Red;
         }
-        else if ((baseColor == Color.red && fillingColor == Color.yellow) || (fillingColor == Color.red && baseColor == Color.yellow))
+        else if ((baseCocktail == CocktailEnum.Red && fillingCocktail == CocktailEnum.Yellow) || (fillingCocktail == CocktailEnum.Red && baseCocktail == CocktailEnum.Yellow))
         {
-            return new Color(1.0f, 0.64f, 0.0f); // orange
+            return CocktailEnum.Orange;
         }
-        else if ((baseColor == Color.red && fillingColor == Color.blue) || (fillingColor == Color.red && baseColor == Color.blue))
+        else if ((baseCocktail == CocktailEnum.Red && fillingCocktail == CocktailEnum.Blue) || (fillingCocktail == CocktailEnum.Red && baseCocktail == CocktailEnum.Blue))
         {
-            return new Color(1.27f, 0.63f, 1.91f); // purple
+            return CocktailEnum.Purple; 
         }
-        else if ((baseColor == Color.red && fillingColor == Color.white) || (fillingColor == Color.red && baseColor == Color.white))
+        else if ((baseCocktail == CocktailEnum.Red && fillingCocktail == CocktailEnum.White) || (fillingCocktail == CocktailEnum.Red && baseCocktail == CocktailEnum.White))
         {
-            return new Color(1.91f, 0.63f, 1.91f); // pink
+            return CocktailEnum.Pink;
         }
-        else if ((baseColor == Color.blue && fillingColor == Color.yellow) || (fillingColor == Color.blue && baseColor == Color.yellow))
+        else if ((baseCocktail == CocktailEnum.Blue && fillingCocktail == CocktailEnum.Yellow) || (fillingCocktail == CocktailEnum.Blue && baseCocktail == CocktailEnum.Yellow))
         {
-            return Color.green;
+            return CocktailEnum.Green;
         }
-        else if ((baseColor == Color.blue && fillingColor == Color.white) || (fillingColor == Color.blue && baseColor == Color.white))
+        else if ((baseCocktail == CocktailEnum.Blue && fillingCocktail == CocktailEnum.White) || (fillingCocktail == CocktailEnum.Blue && baseCocktail == CocktailEnum.White))
         {
-            return Color.cyan;
+            return CocktailEnum.Cyan;
         }
-        else if ((baseColor == Color.blue && fillingColor == Color.blue) || (fillingColor == Color.blue && baseColor == Color.blue))
+        else if (baseCocktail == CocktailEnum.Blue && fillingCocktail == CocktailEnum.Blue)
         {
-            return Color.blue;
+            return CocktailEnum.Blue;
         }
-        else if ((baseColor == Color.white && fillingColor == Color.white) || (fillingColor == Color.white && baseColor == Color.white))
+        else if (baseCocktail == CocktailEnum.White && fillingCocktail == CocktailEnum.White)
         {
-            return Color.white;
+            return CocktailEnum.White;
         }
-        else if ((baseColor == Color.yellow && fillingColor == Color.yellow) || (fillingColor == Color.yellow && baseColor == Color.yellow))
+        else if (baseCocktail == CocktailEnum.Yellow && fillingCocktail == CocktailEnum.Yellow)
         {
-            return Color.yellow;
+            return CocktailEnum.Yellow;
         }
         else
         {
-            return Color.black;
+            return CocktailEnum.Black;
+        }
+    }
+
+    public static Color GetColor(CocktailEnum cocktail)
+    {
+        switch (cocktail)
+        {
+            case CocktailEnum.Red:
+                return Color.red;
+
+            case CocktailEnum.Yellow:
+                return Color.yellow;
+
+            case CocktailEnum.Orange:
+                return new Color(1.0f, 0.64f, 0.0f);
+
+            case CocktailEnum.White:
+                return Color.white;
+
+            case CocktailEnum.Blue:
+                return Color.blue;
+
+            case CocktailEnum.Cyan:
+                return Color.cyan;
+
+            case CocktailEnum.Purple:
+                return new Color(1.27f, 0.63f, 1.91f);
+
+            case CocktailEnum.Pink:
+                return new Color(1.91f, 0.63f, 1.91f);
+
+            case CocktailEnum.Green:
+                return Color.green;
+
+            case CocktailEnum.Black:
+            default:
+                return Color.black;
         }
     }
 }
