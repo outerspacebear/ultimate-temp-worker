@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 589080206204143572}
   - component: {fileID: 589080206204143563}
   - component: {fileID: 2975222710992579651}
-  - component: {fileID: 4647675272145883762}
   - component: {fileID: -7022463159539048429}
   - component: {fileID: 5771485084310961290}
+  - component: {fileID: -4207680804216648203}
   m_Layer: 0
   m_Name: Onion
   m_TagString: Untagged
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.49056602, g: 0.108757555, b: 0.38622078, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 92fe63191859043a3ba5a980d5b21e86, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -107,22 +107,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &4647675272145883762
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589080206204143562}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &-7022463159539048429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,3 +134,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currencyReward: 1
+--- !u!60 &-4207680804216648203
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589080206204143562}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.84, y: 1.84}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.61, y: -0.57}
+      - {x: 0.84999996, y: -0.29999998}
+      - {x: 0.91999996, y: -0.14}
+      - {x: 0.91999996, y: 0.22}
+      - {x: 0.89, y: 0.29999998}
+      - {x: 0.79999995, y: 0.38}
+      - {x: 0.69, y: 0.45999998}
+      - {x: 0.45, y: 0.58}
+      - {x: 0.24, y: 0.64}
+      - {x: -0.089999996, y: 0.72999996}
+      - {x: -0.07, y: 0.84}
+      - {x: -0.16, y: 0.91999996}
+      - {x: -0.29999998, y: 0.91999996}
+      - {x: -0.39, y: 0.85999995}
+      - {x: -0.61, y: 0.72999996}
+      - {x: -0.65, y: 0.71}
+      - {x: -0.65999997, y: 0.64}
+      - {x: -0.58, y: 0.55}
+      - {x: -0.53999996, y: 0.35999998}
+      - {x: -0.77, y: 0.02}
+      - {x: -0.88, y: -0.17999999}
+      - {x: -0.91999996, y: -0.29999998}
+      - {x: -0.91999996, y: -0.47}
+      - {x: -0.90999997, y: -0.55}
+      - {x: -0.89, y: -0.58}
+      - {x: -0.78, y: -0.69}
+      - {x: -0.64, y: -0.75}
+      - {x: -0.42999998, y: -0.77}
+      - {x: -0.37, y: -0.78999996}
+      - {x: -0.08, y: -0.78999996}
+      - {x: 0.14999999, y: -0.79999995}
+      - {x: 0.14, y: -0.87}
+      - {x: 0.28, y: -0.91999996}
+      - {x: 0.42999998, y: -0.91999996}
+      - {x: 0.48999998, y: -0.88}
+      - {x: 0.48999998, y: -0.78}
+      - {x: 0.44, y: -0.69}

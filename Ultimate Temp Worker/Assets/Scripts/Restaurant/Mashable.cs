@@ -42,8 +42,13 @@ public class Mashable : MonoBehaviour
         return false;
     }
 
+    public GameObject mashEffectPrefab;
+
     void OnMash()
     {
+        var mashEffect = GameObject.Instantiate(mashEffectPrefab, transform.position, transform.rotation, transform.parent);
+        Destroy(mashEffect, 1);
+
         //Play sound
         TryRewardCurrency();
         CreateReplacementPrefab();

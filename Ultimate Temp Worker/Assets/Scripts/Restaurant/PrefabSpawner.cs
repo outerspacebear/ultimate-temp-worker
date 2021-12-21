@@ -10,14 +10,15 @@ public class PrefabSpawner : MonoBehaviour
     public float minDelay = .1f;
     public float maxDelay = 1f;
 
-    void Start()
+    private void Awake()
     {
-        StartCoroutine(SpawnPrefabs());
+        MiniGameEvents.miniGameStartedEvent.AddListener(OnGameStarted);
+        MiniGameEvents.miniGameEndedEvent.AddListener(OnGameEnd);
     }
 
     IEnumerator SpawnPrefabs()
     {
-        while (true)
+        while (isGameRunning)
         {
             float delay = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(delay);
@@ -29,7 +30,7 @@ public class PrefabSpawner : MonoBehaviour
             int itemIndex = Random.Range(0, itemPrefabs.Count);
             GameObject spawnedItem = Instantiate(itemPrefabs[itemIndex], spawnPoint.position, spawnPoint.rotation, transform.parent);
 
-            RotateItem(spawnedItem);
+            //RotateItem(spawnedItem);
             PushItemUpwards(spawnedItem);
 
             Destroy(spawnedItem, 5f);
@@ -50,5 +51,18 @@ public class PrefabSpawner : MonoBehaviour
 
         Vector3 rotationVector = new Vector3(0, 0, rotationAngle);
         item.transform.Rotate(rotationVector);
+    }
+
+    bool isGameRunning = false;
+
+    void OnGameStarted()
+    {
+        isGameRunning = true;
+        StartCoroutine(SpawnPrefabs());
+    }
+
+    void OnGameEnd()
+    {
+        isGameRunning = false;
     }
 }
