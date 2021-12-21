@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEngine.UI;
 
 public class OrderManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class OrderManager : MonoBehaviour
     private List<Glass> orderedGlasses;
     private List<Glass> preparedGlasses;
     private List<GlassPosition> unusedOrderPositions;
+
+    public GameObject currencyDisplayPrefabPlate;
+    public GameObject currencyDisplayPrefabOrder;
+    public Transform currencyUIPosition;
 
     private void Awake()
     {
@@ -67,8 +72,16 @@ public class OrderManager : MonoBehaviour
     public void ServePreparedGlasses()
     {
         int amount = CalculateRewardForOrder();
+        DisplayCurrencyEarnedUI(amount, currencyDisplayPrefabPlate);
         AddCurrencyToInventory(amount);
         ResetRound();
+    }
+
+    void DisplayCurrencyEarnedUI(int amountEarned, GameObject currencyPrefab)
+    {
+        var currencyDisplay = GameObject.Instantiate(currencyPrefab, currencyUIPosition.position, currencyPrefab.transform.rotation, currencyUIPosition);
+        currencyDisplay.GetComponentInChildren<Text>().text = amountEarned.ToString();
+        Destroy(currencyDisplay, 1);
     }
 
     public void DiscardOrder()
@@ -76,6 +89,7 @@ public class OrderManager : MonoBehaviour
         if (ShouldHaveDiscardedOrder())
         {
             AddCurrencyToInventory(SteampunkGameData.SingleEarningValue);
+            DisplayCurrencyEarnedUI(SteampunkGameData.SingleEarningValue, currencyDisplayPrefabOrder);
         }
         DestroyOrderedGlassObjects();
         InitLists();
