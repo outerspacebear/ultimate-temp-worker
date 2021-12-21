@@ -13,7 +13,7 @@ public static class TouchUtils
         None
     }
 
-    private static float SwipeThreshold = 0.3f;
+    private static float SwipeThreshold = 5f;
 
     public static bool DoesAnyTouchExist()
     {
@@ -47,7 +47,7 @@ public static class TouchUtils
             return MoveType.None;
         }
 
-        bool isHorizontalSwipe = Mathf.Abs(deltaX) > Mathf.Abs(deltaY);
+        bool isHorizontalSwipe = Mathf.Abs(deltaX) >= (Mathf.Abs(deltaY) / 2);
 
         var moveType = MoveType.None;
 

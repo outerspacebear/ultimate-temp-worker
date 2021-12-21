@@ -15,6 +15,12 @@ public class GlassManager : MonoBehaviour
     private Glass glass;
 
     private Touch initialTouch;
+    private bool hasMovedWithCurrentTouch = false;
+
+    private void Awake()
+    {
+        
+    }
 
     void Start()
     {
@@ -28,23 +34,43 @@ public class GlassManager : MonoBehaviour
             return;
         }
 
-        if (TouchUtils.HasTouchBegan())
+        if (TouchUtils.HasTouchBegan() && IsTouchOnGlass(Input.touches[0]))
         {
             initialTouch = Input.touches[0];
+            hasMovedWithCurrentTouch = false;
         }
 
         var touch = Input.touches[0];
-        if (TouchUtils.IsSwipe(touch))
+        if (TouchUtils.IsSwipe(touch) && !hasMovedWithCurrentTouch)
         {
             var moveType = TouchUtils.GetMoveType(initialTouch, touch);
             MoveGlass(moveType);
+            hasMovedWithCurrentTouch = true;
         }
     }
 
     private void Init()
     {
         InitGlass();
+        InitUnusedCounterPositions();
+    }
+
+    public void InitUnusedCounterPositions()
+    {
         unusedCounterPositions = new List<GlassPosition>(possibleCounterPositions);
+    }
+
+    private bool IsTouchOnGlass(Touch touch)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(touch.position), Vector2.zero);
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.gameObject == glass.currentGlass)
+                return true;
+        }
+
+        return false;
     }
 
     void InitGlass() 
