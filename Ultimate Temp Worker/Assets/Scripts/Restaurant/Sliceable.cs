@@ -56,8 +56,13 @@ public class Sliceable : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public GameObject currencyCoinPrefab;
+
     void TryRewardCurrency()
     {
+        var spawnedPrefab = GameObject.Instantiate(currencyCoinPrefab, gameObject.transform.position + currencyCoinPrefab.transform.position, gameObject.transform.rotation, gameObject.transform.parent);
+        Destroy(spawnedPrefab, 1f);
+
         //Show currency in UI? Or sound effect?
         var currencyRewardComponent = GetComponent<CurrencyReward>();
         if(currencyRewardComponent)

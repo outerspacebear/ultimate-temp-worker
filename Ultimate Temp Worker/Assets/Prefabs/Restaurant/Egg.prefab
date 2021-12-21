@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6154893688678875737}
   - component: {fileID: 4258265975666855809}
   - component: {fileID: 3961909792299896011}
-  - component: {fileID: -1447124780584019928}
   - component: {fileID: 5318371289905684582}
   m_Layer: 0
   m_Name: Egg
@@ -122,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   replacementObject1: {fileID: 3219704553308907605, guid: c2c069c068032408d9c68aba55585056, type: 3}
   replacementObject2: {fileID: 0}
+  currencyCoinPrefab: {fileID: 5584613655108058119, guid: a830d30ea722b4eae8e5e2dfef82399f, type: 3}
 --- !u!114 &3961909792299896011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,19 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   replacementPrefab: {fileID: 3219704553308907605, guid: c2c069c068032408d9c68aba55585056, type: 3}
   mashEffectPrefab: {fileID: 1427383114785208390, guid: d65c1af48a1ad4517a01881e7866e8a4, type: 3}
---- !u!114 &-1447124780584019928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6816337153798416028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0e0b74b29ee49f097a233ba49f863a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currencyReward: -1
+  currencyCoinPrefab: {fileID: 5584613655108058119, guid: a830d30ea722b4eae8e5e2dfef82399f, type: 3}
 --- !u!60 &5318371289905684582
 PolygonCollider2D:
   m_ObjectHideFlags: 0

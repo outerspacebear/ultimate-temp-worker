@@ -87,7 +87,7 @@ public class Blade : MonoBehaviour
 
     void MakeBladeFollowTouch()
     {
-        var destination = Vector3.Lerp(blade.transform.position, TouchUtils.GetWorldPosition(Input.touches[0]), Time.deltaTime * 2f);
+        var destination = Vector3.Lerp(blade.transform.position, TouchUtils.GetWorldPosition(Input.touches[0]), Time.deltaTime * 20f);
         destination.z = blade.transform.position.z;
 
         blade.transform.position = destination;

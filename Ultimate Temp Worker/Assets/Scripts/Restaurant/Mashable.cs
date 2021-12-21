@@ -46,7 +46,7 @@ public class Mashable : MonoBehaviour
 
     void OnMash()
     {
-        var mashEffect = GameObject.Instantiate(mashEffectPrefab, transform.position, transform.rotation, transform.parent);
+        var mashEffect = GameObject.Instantiate(mashEffectPrefab, transform.position + mashEffectPrefab.transform.position, transform.rotation, transform.parent);
         Destroy(mashEffect, 1);
 
         //Play sound
@@ -57,17 +57,22 @@ public class Mashable : MonoBehaviour
 
     void CreateReplacementPrefab()
     {
-        var spawnedPrefab = GameObject.Instantiate(replacementPrefab, gameObject.transform.position, gameObject.transform.rotation, gameObject.transform.parent);
+        var spawnedPrefab = GameObject.Instantiate(replacementPrefab, gameObject.transform.position + replacementPrefab.transform.position, gameObject.transform.rotation, gameObject.transform.parent);
         Destroy(spawnedPrefab, 1.5f);
     }
 
+    public GameObject currencyCoinPrefab;
+
     void TryRewardCurrency()
     {
-        //Show currency in UI? Or sound effect?
         var currencyRewardComponent = GetComponent<CurrencyReward>();
-        if (currencyRewardComponent)
-        {
-            CurrencyUtils.AddCurrencyForGame(CurrencyUtils.RestaurantGameName, currencyRewardComponent.currencyReward);
-        }
+        if (!currencyRewardComponent)
+            return;
+
+        var spawnedPrefab = GameObject.Instantiate(currencyCoinPrefab, gameObject.transform.position + currencyCoinPrefab.transform.position, gameObject.transform.rotation, gameObject.transform.parent);
+        Destroy(spawnedPrefab, 1f);
+
+        //sound effect?
+        CurrencyUtils.AddCurrencyForGame(CurrencyUtils.RestaurantGameName, currencyRewardComponent.currencyReward);
     }
 }

@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   replacementPrefab: {fileID: 5416599264042970236, guid: 503ae94604a8544c196c96261fd46a48, type: 3}
   mashEffectPrefab: {fileID: 1427383114785208390, guid: d65c1af48a1ad4517a01881e7866e8a4, type: 3}
+  currencyCoinPrefab: {fileID: 5584613655108058119, guid: a830d30ea722b4eae8e5e2dfef82399f, type: 3}
 --- !u!114 &-4675533213629762664
 MonoBehaviour:
   m_ObjectHideFlags: 0

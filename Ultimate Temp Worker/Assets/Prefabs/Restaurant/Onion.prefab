@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   replacementObject1: {fileID: 3753119727742631655, guid: 6a03541b223b442a8aeacfbfb5a9a69b, type: 3}
   replacementObject2: {fileID: 3114559774797085177, guid: b59d7e753898a48f9b1d6ae676cb257e, type: 3}
+  currencyCoinPrefab: {fileID: 5584613655108058119, guid: a830d30ea722b4eae8e5e2dfef82399f, type: 3}
 --- !u!114 &5771485084310961290
 MonoBehaviour:
   m_ObjectHideFlags: 0
