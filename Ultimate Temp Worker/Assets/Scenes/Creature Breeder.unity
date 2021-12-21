@@ -656,7 +656,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &349890990
 GameObject:
@@ -1928,7 +1928,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1200159539}
   m_HandleRect: {fileID: 0}
@@ -2129,7 +2129,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 495667339}
   m_HandleRect: {fileID: 0}
@@ -2909,7 +2909,7 @@ RectTransform:
   - {fileID: 1092257716}
   - {fileID: 863915644}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3255,7 +3255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1948664195
 MonoBehaviour:
@@ -3280,6 +3280,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 285294595, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014103771338798527, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949843847261279034, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2257779414564413185, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707937939314249403, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3287083071981458888, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
       propertyPath: m_Camera
       value: 
@@ -3287,6 +3307,10 @@ PrefabInstance:
     - target: {fileID: 3287083071981458888, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
       propertyPath: m_RenderMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287083071981458888, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3287083071981458889, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
       propertyPath: m_Pivot.x
@@ -3298,7 +3322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3287083071981458889, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3287083071981458889, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3375,6 +3399,34 @@ PrefabInstance:
     - target: {fileID: 3287083071981458893, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
       propertyPath: m_Name
       value: MiniGame UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287083071981458893, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498020385906302735, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069691571373395942, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8595403824102884901, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8950873971515193270, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960945366723770215, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017987667460137472, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79cd4ee78057541a196648a4805eb702, type: 3}
@@ -3746,10 +3798,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 326363081}
-        m_TargetAssemblyTypeName: PlanetGenerator, Assembly-CSharp
-        m_MethodName: GenerateAndDisplayNewPlanet
-        m_Mode: 1
+      - m_Target: {fileID: 1793641455}
+        m_TargetAssemblyTypeName: CreaturePartsCombiner, Assembly-CSharp
+        m_MethodName: ChangePartToPrevious
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4032,7 +4084,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 2094847420}
   m_HandleRect: {fileID: 0}

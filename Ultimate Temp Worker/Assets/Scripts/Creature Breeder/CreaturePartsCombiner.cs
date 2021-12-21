@@ -54,7 +54,7 @@ public class CreaturePartsCombiner : MonoBehaviour
         }
     }
 
-    void InitSelectedParts()
+    public void InitSelectedParts()
     {
         selectedPartIndices = new Dictionary<CreaturePartType, int> {{ CreaturePartType.Head, SelectRandomIndexFromList(headCreatureParts) },
             { CreaturePartType.Torso, SelectRandomIndexFromList(torsoCreatureParts) }, {CreaturePartType.Bottom, SelectRandomIndexFromList(bottomCreatureParts) } };

@@ -14,10 +14,15 @@ public class PlanetComposition
         Shuffle(ElementUtil.AllElements);
         foreach(var element in ElementUtil.AllElements)
         {
-            float percentForElement = Random.Range(0, remainingPercent + 1);
+            float percentForElement = Random.Range(0, remainingPercent);
             composition.Add(element, percentForElement);
 
             remainingPercent -= percentForElement;
+        }
+
+        if(remainingPercent > 0)
+        {
+            composition[ElementUtil.AllElements[0]] += remainingPercent;
         }
 
         return new PlanetComposition(composition);

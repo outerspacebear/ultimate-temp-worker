@@ -17,11 +17,37 @@ public class CreatureSubmitter : MonoBehaviour
 
         if (willSurvive)
             RewardCurrencyOnSuccess();
+
+        planetGenerator.GenerateAndDisplayNewPlanet();
+        creatureGenerator.InitSelectedParts();
     }
 
     private bool WillCreatureSurvive(Creature creature, Planet planet)
     {
-        return true;
+        var creaturePercentages = GetCreatureElementalPercentages(creature);
+
+        float survivalProbability = 100f;
+
+        foreach(var element in ElementUtil.AllElements)
+        {
+            survivalProbability -= Mathf.Abs(planet.composition.elementalComposition[element] - creaturePercentages[element]);
+        }
+
+        float randomFloat = Random.Range(0, 100f);
+
+        return randomFloat <= survivalProbability;
+    }
+
+    Dictionary<Element, float> GetCreatureElementalPercentages(Creature creature)
+    {
+        var percentages = new Dictionary<Element, float>() { { Element.Water, 0 }, { Element.Fire, 0 }, { Element.Trees, 0 } };
+
+        foreach (var part in creature.parts)
+        {
+            percentages[part.elementalAffinity] += 33.33f;
+        }
+
+        return percentages;
     }
 
     private void RewardCurrencyOnSuccess()
