@@ -28,6 +28,11 @@ public class OrderManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MiniGameEvents.miniGameStartedEvent.AddListener(OnGameStart);
+    }
+
+    void OnGameStart()
+    {
         Init();
         GenerateNewOrder(1, true);
     }

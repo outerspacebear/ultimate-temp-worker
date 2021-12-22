@@ -22,6 +22,11 @@ public class CreaturePartsCombiner : MonoBehaviour
 
     private void Start()
     {
+        MiniGameEvents.miniGameStartedEvent.AddListener(OnStart);
+    }
+
+    void OnStart()
+    {
         InitCreaturePartsLists();
         InitSelectedParts();
     }

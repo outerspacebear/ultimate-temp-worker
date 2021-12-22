@@ -20,6 +20,11 @@ public class GlassManager : MonoBehaviour
 
     void Start()
     {
+        MiniGameEvents.miniGameStartedEvent.AddListener(OnStart);
+    }
+
+    void OnStart()
+    {
         Init();
     }
 

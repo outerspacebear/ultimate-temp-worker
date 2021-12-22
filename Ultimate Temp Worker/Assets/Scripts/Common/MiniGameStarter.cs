@@ -8,7 +8,7 @@ public class MiniGameStarter : MonoBehaviour
     void Start()
     {
         //TODO: Maybe call after button press or something, instead od in Start()?
-        StartGame();
+        //StartGame();
     }
 
     public void StartGame()
