@@ -108,28 +108,28 @@ public class MixerUtils : MonoBehaviour
                 return Color.red;
 
             case CocktailEnum.Yellow:
-                return Color.yellow;
+                return new Color32(242, 217, 92, 255);
 
             case CocktailEnum.Orange:
-                return new Color(1.0f, 0.64f, 0.0f);
+                return new Color32(251, 172, 89, 255);
 
             case CocktailEnum.White:
-                return Color.white;
+                return new Color32(253, 252, 252, 255);
 
             case CocktailEnum.Blue:
-                return Color.blue;
+                return new Color32(70, 161, 239, 255);
 
             case CocktailEnum.Cyan:
-                return Color.cyan;
+                return new Color32(156, 242, 251, 255);
 
             case CocktailEnum.Purple:
-                return new Color(1.27f, 0.63f, 1.91f);
+                return new Color32(201, 100, 217, 255);
 
             case CocktailEnum.Pink:
-                return new Color(1.91f, 0.63f, 1.91f);
+                return new Color32(251, 177, 172, 255);
 
             case CocktailEnum.Green:
-                return Color.green;
+                return new Color32(91, 229, 149, 255);
 
             case CocktailEnum.Black:
             default:
