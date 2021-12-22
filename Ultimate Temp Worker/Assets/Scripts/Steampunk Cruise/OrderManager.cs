@@ -195,7 +195,7 @@ public class OrderManager : MonoBehaviour
 
             glass = MixerUtils.FillOrderWithColor(glass, cocktail);
 
-            if (glass.hasIce)
+            if (glass.hasIce && cocktail != CocktailEnum.White)
             {
                 glass = AddIce(glass);
             }
