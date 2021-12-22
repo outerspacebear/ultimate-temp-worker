@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
         MiniGameEvents.miniGameEndedEvent.AddListener(LoadNextMiniGame);
 
         DontDestroyOnLoad(gameObject);
+
+        //needed for persistence on iOS
+        System.Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
     }
 
     public void StartGame()

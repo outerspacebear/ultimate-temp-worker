@@ -49,6 +49,9 @@ public class ScoreManager : MonoBehaviour
         }
 
         PopulateTotalFinalCurrencyDisplay();
+
+        Score scoreToSave = new Score { name= "default", score = totalFinalCurrencyEarned };
+        ScoreSaver.Save(scoreToSave);
     }
 
     MiniGameInfo GetInfo(MiniGameType type)
