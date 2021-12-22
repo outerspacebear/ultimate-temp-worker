@@ -1395,13 +1395,13 @@ MonoBehaviour:
     currencyToFinalCurrencyMultiplier: 0.5
   - type: 1
     miniGameCurrencyStoreKey: SteampunkGame
-    currencySprite: {fileID: 21300000, guid: 6e45a279f0db7416599de6f59ace3f33, type: 3}
+    currencySprite: {fileID: 21300000, guid: d5873889423984bab840d715e8f30291, type: 3}
     currencyToFinalCurrencyMultiplier: 0.5
   - type: 2
     miniGameCurrencyStoreKey: CreCreGameCur
-    currencySprite: {fileID: 21300000, guid: 6e45a279f0db7416599de6f59ace3f33, type: 3}
+    currencySprite: {fileID: 21300000, guid: aa2484217459a4bdf84c9c121a3208f6, type: 3}
     currencyToFinalCurrencyMultiplier: 0.5
-  finalCurrencySprite: {fileID: 21300000, guid: 6e45a279f0db7416599de6f59ace3f33, type: 3}
+  finalCurrencySprite: {fileID: 21300000, guid: 1a86210063e3c4394a3fe3b00f2e666f, type: 3}
 --- !u!1 &904822257
 GameObject:
   m_ObjectHideFlags: 0
