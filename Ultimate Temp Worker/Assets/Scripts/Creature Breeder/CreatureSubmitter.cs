@@ -6,9 +6,11 @@ public class CreatureSubmitter : MonoBehaviour
 {
     public PlanetGenerator planetGenerator;
     public CreaturePartsCombiner creatureGenerator;
+    public AudioSource sound;
 
     public void SubmitCreature()
     {
+        sound.Play();
         var creature = creatureGenerator.GetCurrentCreature();
         var planet = planetGenerator.GetCurrentPlanet();
 
