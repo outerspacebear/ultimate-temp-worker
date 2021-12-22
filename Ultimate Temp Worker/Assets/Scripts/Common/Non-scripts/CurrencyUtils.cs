@@ -10,17 +10,15 @@ public static class CurrencyUtils
     public static string RestaurantGameName = "RestGameCur";
     public static string CreatureCreatorGameName = "CreCreGameCur";
 
-    public static void AddCurrencyForCurrentGame(int amount)
-    {
-        var currencyEarnedPreviously = PlayerPrefs.GetInt(CurrentMiniGameCurrency, 0);
-
-        PlayerPrefs.SetInt(CurrentMiniGameCurrency, currencyEarnedPreviously + amount);
-    }
-
     public static void AddCurrencyForGame(string gameName, int amount)
     {
         var currencyEarnedPreviously = PlayerPrefs.GetInt(gameName, 0);
 
         PlayerPrefs.SetInt(gameName, currencyEarnedPreviously + amount);
+    }
+
+    public static void ResetAllCurrencies()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

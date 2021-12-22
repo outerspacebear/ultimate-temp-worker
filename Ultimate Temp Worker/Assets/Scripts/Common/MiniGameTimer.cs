@@ -30,6 +30,9 @@ public class MiniGameTimer : MonoBehaviour
     {
         MiniGameEvents.miniGameEndedEvent.Invoke();
         Destroy(this);
+
+        Debug.Log("rest: " + PlayerPrefs.GetInt(CurrencyUtils.RestaurantGameName).ToString() + "\ncocktails: " + PlayerPrefs.GetInt(SteampunkGameData.GameName).ToString()
+            + "\nCreatures: " + PlayerPrefs.GetInt(CurrencyUtils.CreatureCreatorGameName).ToString());
     }
 
     private void SetHasGameStarted()

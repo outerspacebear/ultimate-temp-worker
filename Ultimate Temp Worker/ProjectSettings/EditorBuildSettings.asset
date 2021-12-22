@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 9f2eedae2dd7b4a499743265ad8e45dd
+  - enabled: 1
     path: Assets/Scenes/Medieval Restaurant.unity
     guid: 2a5c7afaba7db43e2833925126b423c0
   - enabled: 1
-    path: Assets/Scenes/Sample MiniGame.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Steampunk Cruise.unity
+    guid: baeb7fd0064214c8bb96500814f10f02
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
-    guid: 9f2eedae2dd7b4a499743265ad8e45dd
+    path: Assets/Scenes/Creature Breeder.unity
+    guid: 3c6446274bbfe4960b5512798e311509
+  - enabled: 1
+    path: Assets/Scenes/Game End Scene.unity
+    guid: 4e322e41a6b5148adbafc62336689eaa
   m_configObjects: {}

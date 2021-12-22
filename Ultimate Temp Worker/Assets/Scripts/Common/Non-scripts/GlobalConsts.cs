@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class GlobalConsts
 {
-    public const int MiniGameDurationInSeconds = 60;
+    public const int MiniGameDurationInSeconds = 20;
 }
