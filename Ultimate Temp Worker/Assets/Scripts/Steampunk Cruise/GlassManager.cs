@@ -9,6 +9,7 @@ public class GlassManager : MonoBehaviour
     public List<GlassPosition> possibleGlassPositions;
     public List<GlassPosition> possibleCounterPositions;
     public GlassPosition binPosition;
+    public AudioSource glassBinnedSound;
     public GameObject prefabGlass;
 
     private List<GlassPosition> unusedCounterPositions;
@@ -53,6 +54,7 @@ public class GlassManager : MonoBehaviour
 
             if(closestGlassPosition.position.position == binPosition.position.position)
             {
+                glassBinnedSound.Play();
                 DiscardGlass();
             }
             else if(unusedCounterPositions.Contains(closestGlassPosition))
