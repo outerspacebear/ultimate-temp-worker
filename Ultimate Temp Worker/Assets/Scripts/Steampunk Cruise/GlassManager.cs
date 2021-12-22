@@ -15,9 +15,6 @@ public class GlassManager : MonoBehaviour
 
     private Glass glass;
 
-    /*private Touch initialTouch;
-    private bool hasMovedWithCurrentTouch = false;*/
-
     bool isDraggingGlass = false;
 
     void Start()
@@ -27,25 +24,6 @@ public class GlassManager : MonoBehaviour
 
     void Update()
     {
-        /*if (!TouchUtils.DoesAnyTouchExist())
-        {
-            return;
-        }
-
-        if (TouchUtils.HasTouchBegan() && IsTouchOnGlass(Input.touches[0]))
-        {
-            initialTouch = Input.touches[0];
-            hasMovedWithCurrentTouch = false;
-        }
-
-        var touch = Input.touches[0];
-        if (TouchUtils.IsSwipe(touch) && !hasMovedWithCurrentTouch)
-        {
-            var moveType = TouchUtils.GetMoveType(initialTouch, touch);
-            MoveGlass(moveType);
-            hasMovedWithCurrentTouch = true;
-        }*/
-
         if (!TouchUtils.DoesAnyTouchExist())
         {
             return;
@@ -194,32 +172,6 @@ public class GlassManager : MonoBehaviour
         glass = MixerUtils.FillWithColor(glass, "White");
     }
 
-    /*private void MoveGlass(TouchUtils.MoveType moveType)
-    {
-        switch (moveType)
-        {
-            case TouchUtils.MoveType.Up:
-                OnMoveGlassUp();
-                return;
-
-            case TouchUtils.MoveType.Down:
-                DiscardGlass();
-                return;
-
-            case TouchUtils.MoveType.Left:
-                MoveGlassToLeft();
-                return;
-
-            case TouchUtils.MoveType.Right:
-                MoveGlassToRight();
-                return;
-
-            case TouchUtils.MoveType.None:
-            default:
-                return;
-        }
-    }*/
-
     public void OnMoveGlassToCounter()
     {
         if (unusedCounterPositions.Count > 0)
@@ -317,18 +269,6 @@ public class GlassManager : MonoBehaviour
         return currentPositionIndex;
     }
 
-    /*private GlassPosition GetRandomSpawnableGlassPosition()
-    {
-        if (possibleGlassPositions.Count == 0)
-        {
-            Debug.Log("Empty glass positions, check assets");
-            return new GlassPosition { name = "null", position = null };
-        }
-
-        int spawnIndex = UnityEngine.Random.Range(0, possibleGlassPositions.Count);
-        return possibleGlassPositions[spawnIndex];
-    }*/
-
     private GlassPosition GetRandomCounterGlassPosition()
     {
         int spawnIndex = UnityEngine.Random.Range(0, unusedCounterPositions.Count);
@@ -345,10 +285,5 @@ public class GlassManager : MonoBehaviour
     {
         glass.currentGlass.transform.position = newGlassPosition.position.position;
         glass.currentPosition = newGlassPosition;
-    }
-
-    private bool IsGlassInStartingPosition()
-    {
-        return glass.currentPosition.position.position == startingPosition.position;
     }
 }
