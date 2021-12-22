@@ -9,14 +9,16 @@ public class OrderManager : MonoBehaviour
     public GameObject orderedGlassPrefab;
     public List<GlassPosition> orderPositions;
 
+    public GameObject currencyDisplayPrefabPlate;
+    public GameObject currencyDisplayPrefabOrder;
+    public Transform currencyUIPosition;
+
+    public GameObject warningLimitReachedUI;
+
     private List<CocktailEnum> cocktailEnums;
     private List<Glass> orderedGlasses;
     private List<Glass> preparedGlasses;
     private List<GlassPosition> unusedOrderPositions;
-
-    public GameObject currencyDisplayPrefabPlate;
-    public GameObject currencyDisplayPrefabOrder;
-    public Transform currencyUIPosition;
 
     private void Awake()
     {
@@ -71,6 +73,13 @@ public class OrderManager : MonoBehaviour
 
     public void ServePreparedGlasses()
     {
+        bool hasServedMoreThanAuthorised = preparedGlasses.Count > SteampunkGameData.MaxAmountOfDrinksAuthorised;
+
+        if (hasServedMoreThanAuthorised)
+        {
+            warningLimitReachedUI.SetActive(true);
+        }
+
         int amount = CalculateRewardForOrder();
         DisplayCurrencyEarnedUI(amount, currencyDisplayPrefabPlate);
         AddCurrencyToInventory(amount);
