@@ -50,6 +50,12 @@ public class OrderManager : MonoBehaviour
         preparedGlasses = new List<Glass>();
     }
 
+    private void ReinitialiseDataAfterDiscard()
+    {
+        cocktailEnums = new List<CocktailEnum>();
+        orderedGlasses = new List<Glass>();
+    }
+
     private void ResetOrderPositions()
     {
         unusedOrderPositions = new List<GlassPosition>(orderPositions);
@@ -106,7 +112,7 @@ public class OrderManager : MonoBehaviour
             DisplayCurrencyEarnedUI(SteampunkGameData.SingleEarningValue, currencyDisplayPrefabOrder);
         }
         DestroyOrderedGlassObjects();
-        InitLists();
+        ReinitialiseDataAfterDiscard();
         ResetOrderPositions();
         GenerateNewOrder(UnityEngine.Random.Range(0, 2), false);
     }
