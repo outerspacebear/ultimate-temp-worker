@@ -945,7 +945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1392,15 +1392,15 @@ MonoBehaviour:
   - type: 0
     miniGameCurrencyStoreKey: RestGameCur
     currencySprite: {fileID: 21300000, guid: 6e45a279f0db7416599de6f59ace3f33, type: 3}
-    currencyToFinalCurrencyMultiplier: 0.5
+    currencyToFinalCurrencyMultiplier: 0.11
   - type: 1
     miniGameCurrencyStoreKey: SteampunkGame
     currencySprite: {fileID: 21300000, guid: d5873889423984bab840d715e8f30291, type: 3}
-    currencyToFinalCurrencyMultiplier: 0.5
+    currencyToFinalCurrencyMultiplier: 0.78
   - type: 2
     miniGameCurrencyStoreKey: CreCreGameCur
     currencySprite: {fileID: 21300000, guid: aa2484217459a4bdf84c9c121a3208f6, type: 3}
-    currencyToFinalCurrencyMultiplier: 0.5
+    currencyToFinalCurrencyMultiplier: 0.43
   finalCurrencySprite: {fileID: 21300000, guid: 1a86210063e3c4394a3fe3b00f2e666f, type: 3}
 --- !u!1 &904822257
 GameObject:
@@ -1930,7 +1930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2870,7 +2870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
