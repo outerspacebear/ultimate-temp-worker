@@ -184,6 +184,7 @@ public class OrderManager : MonoBehaviour
         {
             var position = PopRandomOrderedGlassPosition();
             var glassGameObject = GetGlassObject(position);
+            withIce &= cocktail != CocktailEnum.White;
 
             Glass glass = new Glass
             {
@@ -195,7 +196,7 @@ public class OrderManager : MonoBehaviour
 
             glass = MixerUtils.FillOrderWithColor(glass, cocktail);
 
-            if (glass.hasIce && cocktail != CocktailEnum.White)
+            if (glass.hasIce)
             {
                 glass = AddIce(glass);
             }
