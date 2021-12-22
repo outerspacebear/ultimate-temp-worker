@@ -55,7 +55,7 @@ public class GlassManager : MonoBehaviour
             {
                 DiscardGlass();
             }
-            else if(possibleCounterPositions.Contains(closestGlassPosition))
+            else if(unusedCounterPositions.Contains(closestGlassPosition))
             {
                 OnMoveGlassToCounter();
             }
@@ -76,7 +76,7 @@ public class GlassManager : MonoBehaviour
                 nearestPosition = potentialPosition;
             }
         }
-        foreach (var potentialPosition in possibleCounterPositions)
+        foreach (var potentialPosition in unusedCounterPositions)
         {
             var distance = Vector3.Distance(sourcePosition.position, potentialPosition.position.position);
             if (distance < minDistance)
